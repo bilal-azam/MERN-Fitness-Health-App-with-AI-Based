@@ -1,3 +1,3 @@
-// Import user routes
-const userRoutes = require('./routes/user');
-app.use('/api/user', userRoutes);
+// Import workout routes
+const workoutRoutes = require('./routes/workout');
+app.use('/api/workouts', workoutRoutes);
