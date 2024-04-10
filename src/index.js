@@ -1,3 +1,3 @@
-// Import workout routes
-const workoutRoutes = require('./routes/workout');
-app.use('/api/workouts', workoutRoutes);
+// Import nutrition routes
+const nutritionRoutes = require('./routes/nutrition');
+app.use('/api/nutritions', nutritionRoutes);
