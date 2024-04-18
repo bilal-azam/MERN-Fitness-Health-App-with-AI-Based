@@ -1,6 +1,4 @@
-import WorkoutForm from '../components/WorkoutForm';
-import WorkoutList from '../components/WorkoutList';
+// Integrate activity tracker into HomePage
+import useActivityTracker from '../hooks/useActivityTracker';
 
-// Inside HomePage component
-<WorkoutForm onWorkoutAdded={fetchUser} />
-<WorkoutList />
+useActivityTracker();
