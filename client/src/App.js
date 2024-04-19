@@ -1,4 +1,4 @@
-// Add the recommendations page route
-import RecommendationsPage from './pages/RecommendationsPage';
+// Add workout recommendations page route
+import WorkoutRecommendationsPage from './pages/WorkoutRecommendationsPage';
 
-<Route path="/recommendations" element={<RecommendationsPage />} />
+<Route path="/workout-recommendations" element={<WorkoutRecommendationsPage />} />
