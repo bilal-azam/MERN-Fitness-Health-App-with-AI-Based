@@ -1,4 +1,4 @@
-// Add nutrition recommendations page route
-import NutritionRecommendationsPage from './pages/NutritionRecommendationsPage';
+// Add the advanced recommendations page route
+import AdvancedRecommendationsPage from './pages/AdvancedRecommendationsPage';
 
-<Route path="/nutrition-recommendations" element={<NutritionRecommendationsPage />} />
+<Route path="/advanced-recommendations" element={<AdvancedRecommendationsPage />} />
