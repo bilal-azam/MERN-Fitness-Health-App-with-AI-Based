@@ -1,4 +1,4 @@
-// Add the advanced recommendations page route
-import AdvancedRecommendationsPage from './pages/AdvancedRecommendationsPage';
+// Add sleep recommendations page route
+import SleepRecommendationsPage from './pages/SleepRecommendationsPage';
 
-<Route path="/advanced-recommendations" element={<AdvancedRecommendationsPage />} />
+<Route path="/sleep-recommendations" element={<SleepRecommendationsPage />} />
