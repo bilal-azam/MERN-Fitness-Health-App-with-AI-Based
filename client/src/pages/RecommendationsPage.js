@@ -1,41 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import useRecommendations from '../hooks/useRecommendations';
+// Integrate social sharing into RecommendationsPage
+import useSocialSharing from '../hooks/useSocialSharing';
 
-function RecommendationsPage() {
-    const [userData, setUserData] = useState(null);
-    const recommendations = useRecommendations(userData);
+const { shareRecommendation, shared } = useSocialSharing();
 
-    useEffect(() => {
-        // Fetch user data from API
-        const fetchUserData = async () => {
-            try {
-                const token = localStorage.getItem('token');
-                const res = await axios.get('/api/user/profile', {
-                    headers: { Authorization: `Bearer ${token}` }
-                });
-                setUserData(res.data);
-            } catch (err) {
-                console.error(err.response.data.error);
-            }
-        };
-
-        fetchUserData();
-    }, []);
-
-    return (
-        <div>
-            <h2>Recommendations</h2>
-            {recommendations ? (
-                <ul>
-                    {recommendations.map((rec, index) => (
-                        <li key={index}>{rec}</li>
-                    ))}
-                </ul>
-            ) : (
-                <p>Loading recommendations...</p>
-            )}
-        </div>
-    );
-}
-
-export default RecommendationsPage;
+<button onClick={() => shareRecommendation('platform', recommendation)}>
+    Share
+</button>
+{shared && <p>Recommendation shared!</p>}
