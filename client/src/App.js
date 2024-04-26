@@ -1,4 +1,4 @@
-// Add sleep recommendations page route
-import SleepRecommendationsPage from './pages/SleepRecommendationsPage';
+// Add personalized workouts page route
+import PersonalizedWorkoutsPage from './pages/PersonalizedWorkoutsPage';
 
-<Route path="/sleep-recommendations" element={<SleepRecommendationsPage />} />
+<Route path="/personalized-workouts" element={<PersonalizedWorkoutsPage />} />
