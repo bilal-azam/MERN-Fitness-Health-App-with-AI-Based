@@ -1,4 +1,4 @@
-// Add personalized workouts page route
-import PersonalizedWorkoutsPage from './pages/PersonalizedWorkoutsPage';
+// Add A/B testing page route
+import ABTestPage from './pages/ABTestPage';
 
-<Route path="/personalized-workouts" element={<PersonalizedWorkoutsPage />} />
+<Route path="/ab-test" element={<ABTestPage />} />
