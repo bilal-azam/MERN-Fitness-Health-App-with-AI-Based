@@ -1,8 +1,4 @@
-// Integrate feedback loop into NutritionRecommendationsPage
-import useFeedbackLoop from '../hooks/useFeedbackLoop';
+// Track user engagement on NutritionRecommendationsPage
+import useUserEngagement from '../hooks/useUserEngagement';
 
-const { submitFeedback, submitted } = useFeedbackLoop(meal.id, feedback);
-
-<button onClick={submitFeedback}>
-    {submitted ? 'Feedback Submitted' : 'Submit Feedback'}
-</button>
+useUserEngagement('page_view', 'NutritionRecommendationsPage');
