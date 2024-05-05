@@ -1,12 +1,12 @@
-// Code review: Simplify Header component
+// Updated Header component with improved styling
 import React from 'react';
 import { Link } from 'react-router-dom';
 
 function Header() {
     return (
-        <header>
-            <nav>
-                <ul>
+        <header className="header">
+            <nav className="nav">
+                <ul className="nav-list">
                     <li><Link to="/">Home</Link></li>
                     <li><Link to="/workout-recommendations">Workouts</Link></li>
                     <li><Link to="/nutrition-recommendations">Nutrition</Link></li>
