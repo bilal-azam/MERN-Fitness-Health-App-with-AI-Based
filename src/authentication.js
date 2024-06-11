@@ -1,50 +1,38 @@
 // src/authentication.js
 
 /**
- * Enhanced User Authentication Module
- * Handles user login, registration, and enhanced security features.
+ * Enhanced User Authentication Module with Roles and Permissions
+ * Handles user login, registration, and user roles.
  */
 
-const users = {}; // In-memory store for user data
+const users = {}; // In-memory store for user data with roles
 
 /**
- * Registers a new user with password hashing.
+ * Registers a new user with a role and password hashing.
  * @param {string} username - The username of the new user.
  * @param {string} password - The password of the new user.
+ * @param {string} role - The role of the new user (e.g., 'admin', 'user').
  * @returns {string} - Success message or error.
  */
-function register(username, password) {
+function register(username, password, role) {
     if (users[username]) {
         return 'User already exists.';
     }
-    // Hashing the password for security
     const hashedPassword = hashPassword(password);
-    users[username] = hashedPassword;
+    users[username] = { password: hashedPassword, role };
     return 'User registered successfully.';
 }
 
 /**
- * Authenticates a user with password comparison.
+ * Checks the role of the user.
  * @param {string} username - The username of the user.
- * @param {string} password - The password of the user.
- * @returns {string} - Success message or error.
+ * @returns {string} - The role of the user or 'User not found'.
  */
-function authenticate(username, password) {
-    const hashedPassword = hashPassword(password);
-    if (users[username] === hashedPassword) {
-        return 'Authentication successful.';
+function getRole(username) {
+    if (users[username]) {
+        return users[username].role;
     }
-    return 'Invalid credentials.';
+    return 'User not found';
 }
 
-/**
- * Hashes the password.
- * @param {string} password - The password to hash.
- * @returns {string} - The hashed password.
- */
-function hashPassword(password) {
-    // Simple hashing logic for demonstration (use a library like bcrypt in production)
-    return password.split('').reverse().join('');
-}
-
-module.exports = { register, authenticate };
+module.exports = { register, authenticate, getRole };
