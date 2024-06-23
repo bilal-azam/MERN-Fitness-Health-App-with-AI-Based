@@ -1,4 +1,3 @@
-const cacheMiddleware = require('../middleware/cacheMiddleware');
+const rateLimiter = require('../middleware/rateLimiter');
 
-router.get('/weather', cacheMiddleware, externalApiController.getWeather);
-router.get('/news', cacheMiddleware, externalApiController.getNews);
+router.use(rateLimiter);
