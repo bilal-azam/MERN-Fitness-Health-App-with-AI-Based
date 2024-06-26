@@ -6,6 +6,7 @@ function ProfileComponent() {
     const [profile, setProfile] = useState(null);
     const [editMode, setEditMode] = useState(false);
     const [profileData, setProfileData] = useState({ email: '', age: '', phone: '', address: '' });
+    const [error, setError] = useState('');
 
     useEffect(() => {
         fetch('/api/profile/testUser')
@@ -13,7 +14,8 @@ function ProfileComponent() {
             .then(data => {
                 setProfile(data);
                 setProfileData(data);
-            });
+            })
+            .catch(() => setError('Failed to load profile.'));
     }, []);
 
     const handleSave = () => {
@@ -22,17 +24,25 @@ function ProfileComponent() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ username: 'testUser', profileData })
         })
-        .then(response => response.text())
+        .then(response => {
+            if (!response.ok) {
+                return response.text().then(text => { throw new Error(text); });
+            }
+            return response.text();
+        })
         .then(result => {
             alert(result);
             setProfile(profileData);
             setEditMode(false);
-        });
+            setError('');
+        })
+        .catch(err => setError(err.message));
     };
 
     return (
         <div>
             <h2>User Profile</h2>
+            {error && <p style={{ color: 'red' }}>{error}</p>}
             {editMode ? (
                 <div>
                     <input 
