@@ -1,61 +1,31 @@
-// Finalized project documentation
-# Health & Fitness Recommendation Platform
+# User Profile Management System
 
 ## Overview
-This platform provides personalized health and fitness recommendations across workouts, nutrition, and sleep based on user data.
+This project provides a user profile management system with enhanced performance, security, and additional features.
 
 ## Features
-- AI-based personalized workout plans
-- Nutrition and sleep recommendations
-- User engagement tracking
-- A/B testing for recommendation algorithms
-- Social sharing of recommendations
+- **Profile Creation and Update:** Create or update user profiles.
+- **Security Measures:** Includes rate limiting and input sanitization.
+- **Performance Optimization:** Improved backend performance and response times.
+- **Third-Party API Integration:** Fetches additional user data from an external API.
 
-## Getting Started
-### Prerequisites
-- Node.js
-- MongoDB
-
-### Installation
-1. Clone the repository
-```
-git clone https://github.com/username/health-fitness-platform.git
-```
-2. Install dependencies
-```
-npm install
-```
-3. Start the development server
-```
-npm start
-```
+## Recent Changes
+### July 4, 2024
+- Refined error handling for third-party API integration.
+- Addressed feedback from User Acceptance Testing (UAT).
+- Updated documentation to reflect recent changes and enhancements.
 
 ## API Endpoints
-### User
-- `GET /api/user/profile` - Retrieve user profile
-- `POST /api/user/register` - Register a new user
-- `POST /api/user/login` - User login
+- **POST /api/profile:** Create or update a user profile.
+- **GET /api/profile/:username:** Retrieve a user profile with additional data.
 
-### Recommendations
-- `GET /api/recommendations/workouts` - Get workout recommendations
-- `GET /api/recommendations/nutrition` - Get nutrition recommendations
-- `GET /api/recommendations/sleep` - Get sleep recommendations
+## Installation
+1. Clone the repository: `git clone [repo_url]`
+2. Install dependencies: `npm install`
+3. Start the server: `npm start`
 
-### Feedback
-- `POST /api/feedback` - Submit feedback on recommendations
-
-## Deployment
-### Production Build
-```
-npm run build
-```
-
-### Environment Variables
-- `MONGO_URI` - MongoDB connection string
-- `JWT_SECRET` - Secret for JWT authentication
-
-## Contributing
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+## Testing
+Run tests with: `npm test`
 
 ## License
-[MIT](https://opensource.org/licenses/MIT)
+This project is licensed under the MIT License.
