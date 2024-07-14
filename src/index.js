@@ -1,3 +1,6 @@
-const i18n = require('./i18n/i18n');
+const http = require('http');
+const socketIO = require('./socket');
 
-app.use(i18n.init);
+const server = http.createServer(app);
+socketIO.init(server);
+server.listen(process.env.PORT || 3000);
