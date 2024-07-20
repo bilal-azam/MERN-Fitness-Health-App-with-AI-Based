@@ -1,6 +1,4 @@
-const http = require('http');
-const socketIO = require('./socket');
+const rateLimiter = require('./middleware/rateLimiter');
 
-const server = http.createServer(app);
-socketIO.init(server);
-server.listen(process.env.PORT || 3000);
+// Use rate limiter middleware
+app.use(rateLimiter);
