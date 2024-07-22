@@ -1,18 +1,17 @@
 const db = require('../models');
-const { Parser } = require('json2csv');
+const json2csv = require('json2csv').parse;
+const fs = require('fs');
+const path = require('path');
 
-exports.exportActivityLogs = async (req, res) => {
+exports.exportUserData = async (req, res) => {
   try {
-      const logs = await db.ActivityLog.findAll({ where: { userId: req.user.id } });
-      const parser = new Parser();
-      const csv = parser.parse(logs.map(log => ({
-          id: log.id,
-          action: log.action,
-          timestamp: log.timestamp
-      })));
-      res.header('Content-Type', 'text/csv');
-      res.attachment('activity_logs.csv');
-      res.send(csv);
+      const users = await db.User.findAll();
+      const csv = json2csv(users.map(user => user.toJSON()));
+
+      const filePath = path.join(__dirname, '../../exports/user_data.csv');
+      fs.writeFileSync(filePath, csv);
+      
+      res.download(filePath, 'user_data.csv');
   } catch (error) {
       res.status(500).send('Server error');
   }
