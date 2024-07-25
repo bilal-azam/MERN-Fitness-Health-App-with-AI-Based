@@ -1,19 +1,19 @@
 const db = require('../models');
 
-exports.getPreferences = async (req, res) => {
+exports.updateNotificationPreferences = async (req, res) => {
   try {
-      const preferences = await db.NotificationPreferences.findOne({ where: { userId: req.user.id } });
-      res.json(preferences);
+      const { preferences } = req.body;
+      await db.User.update({ notificationPreferences: preferences }, { where: { id: req.user.id } });
+      res.send('Notification preferences updated');
   } catch (error) {
       res.status(500).send('Server error');
   }
 };
 
-exports.updatePreferences = async (req, res) => {
+exports.getNotificationPreferences = async (req, res) => {
   try {
-      const { email, sms } = req.body;
-      await db.NotificationPreferences.upsert({ userId: req.user.id, email, sms });
-      res.send('Preferences updated');
+      const user = await db.User.findByPk(req.user.id);
+      res.json(user.notificationPreferences);
   } catch (error) {
       res.status(500).send('Server error');
   }
