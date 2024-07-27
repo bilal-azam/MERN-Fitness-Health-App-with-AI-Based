@@ -1,9 +1,16 @@
 const db = require('../models');
 
-exports.getAnalytics = async (req, res) => {
+exports.getUserAnalytics = async (req, res) => {
   try {
-      const analytics = await db.Analytics.findAll(); // Example data fetching
-      res.json(analytics);
+      const activities = await db.UserActivity.findAll({
+          where: { userId: req.user.id },
+          attributes: [
+              [db.sequelize.fn('COUNT', db.sequelize.col('activity')), 'activityCount']
+          ],
+          group: ['activity']
+      });
+
+      res.json(activities);
   } catch (error) {
       res.status(500).send('Server error');
   }
