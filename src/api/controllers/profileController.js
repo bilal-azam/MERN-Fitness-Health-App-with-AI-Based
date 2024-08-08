@@ -1,25 +1,24 @@
 const db = require('../models');
-const multer = require('multer');
 const path = require('path');
+const fs = require('fs');
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-      cb(null, 'uploads/profile_pictures');
-  },
-  filename: (req, file, cb) => {
-      cb(null, req.user.id + path.extname(file.originalname));
-  }
-});
-
-const upload = multer({ storage });
-
-exports.uploadProfilePicture = upload.single('profilePicture');
-
-exports.updateProfilePicture = async (req, res) => {
+exports.uploadProfilePicture = async (req, res) => {
   try {
-      const filePath = req.file.path;
+      const { file } = req;
+      const filePath = path.join(__dirname, '../../uploads/profile_pictures', file.originalname);
+      fs.writeFileSync(filePath, file.buffer);
+      
       await db.User.update({ profilePicture: filePath }, { where: { id: req.user.id } });
-      res.json({ profilePicture: filePath });
+      res.send('Profile picture updated');
+  } catch (error) {
+      res.status(500).send('Server error');
+  }
+};
+
+exports.getProfilePicture = async (req, res) => {
+  try {
+      const user = await db.User.findByPk(req.user.id);
+      res.sendFile(user.profilePicture);
   } catch (error) {
       res.status(500).send('Server error');
   }
