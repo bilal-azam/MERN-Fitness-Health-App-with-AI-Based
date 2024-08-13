@@ -1,20 +1,14 @@
 const db = require('../models');
-const { Op } = require('sequelize');
-const io = require('../socket');
 
 exports.sendMessage = async (req, res) => {
   try {
       const { recipientId, message } = req.body;
-      const chatMessage = await db.ChatMessage.create({
+      await db.Chat.create({
           senderId: req.user.id,
           recipientId,
           message
       });
-      io.getIO().emit('chat', {
-          action: 'message',
-          message: chatMessage
-      });
-      res.status(201).json(chatMessage);
+      res.send('Message sent');
   } catch (error) {
       res.status(500).send('Server error');
   }
@@ -23,14 +17,11 @@ exports.sendMessage = async (req, res) => {
 exports.getMessages = async (req, res) => {
   try {
       const { recipientId } = req.query;
-      const messages = await db.ChatMessage.findAll({
+      const messages = await db.Chat.findAll({
           where: {
-              [Op.or]: [
-                  { senderId: req.user.id, recipientId },
-                  { senderId: recipientId, recipientId: req.user.id }
-              ]
-          },
-          order: [['createdAt', 'ASC']]
+              senderId: req.user.id,
+              recipientId
+          }
       });
       res.json(messages);
   } catch (error) {
