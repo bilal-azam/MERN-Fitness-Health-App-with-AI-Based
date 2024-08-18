@@ -1,4 +1,7 @@
-const passwordValidator = require('../middleware/passwordValidator');
+const express = require('express');
+const router = express.Router();
+const authController = require('../controllers/authController');
 
-// Add password validation middleware to registration route
-router.post('/register', passwordValidator, authController.register);
+router.post('/login', authController.login);
+
+module.exports = router;
