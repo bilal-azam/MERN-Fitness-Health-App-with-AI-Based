@@ -1,3 +1,5 @@
-const swagger = require('../swagger');
+const express = require('express');
+const app = express();
+const localization = require('../../middleware/localization');
 
-router.use('/api-docs', swagger.swaggerUi.serve, swagger.swaggerUi.setup(swagger.swaggerSpec));
+app.use(localization.init);
