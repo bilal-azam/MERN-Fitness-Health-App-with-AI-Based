@@ -1,20 +1,23 @@
-const db = require('../models');
+const WebSocket = require('ws');
 
-exports.updateNotificationPreferences = async (req, res) => {
-  try {
-      const { preferences } = req.body;
-      await db.User.update({ notificationPreferences: preferences }, { where: { id: req.user.id } });
-      res.send('Notification preferences updated');
-  } catch (error) {
-      res.status(500).send('Server error');
-  }
-};
+const wss = new WebSocket.Server({ port: 8080 });
 
-exports.getNotificationPreferences = async (req, res) => {
-  try {
-      const user = await db.User.findByPk(req.user.id);
-      res.json(user.notificationPreferences);
-  } catch (error) {
-      res.status(500).send('Server error');
-  }
+wss.on('connection', ws => {
+  ws.on('message', message => {
+      wss.clients.forEach(client => {
+          if (client.readyState === WebSocket.OPEN) {
+              client.send(message);
+          }
+      });
+  });
+});
+
+exports.sendNotification = (req, res) => {
+  const { message } = req.body;
+  wss.clients.forEach(client => {
+      if (client.readyState === WebSocket.OPEN) {
+          client.send(message);
+      }
+  });
+  res.send('Notification sent');
 };
